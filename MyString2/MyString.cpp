@@ -36,8 +36,15 @@ char *myString::getWord() const
 //======================================================
 myString::myString(const char *newChar)
 {
-	word = new  char[strlen(newChar) + 1];
-	strcpy_s(word, strlen(newChar) + 1, newChar);
+	if (newChar != nullptr)
+	{
+		word = new  char[strlen(newChar) + 1];
+		strcpy_s(word, strlen(newChar) + 1, newChar);
+	}
+	else
+	{
+		word = nullptr;
+	}
 }
 
 //====================================================== 
@@ -83,12 +90,32 @@ myString myString::operator+(const myString &other)
 {
 	myString temp;
 
-	int size = strlen(other.word) + strlen(word) + 2;
-	temp.word = new char[size];
+	if (other.word == nullptr && word != nullptr)
+	{
+		int size = strlen(word);
+		temp.word = new char[size+1];
 
-	strcpy_s(temp.word, size, word);
-	strcat_s(temp.word, size, " ");
-	strcat_s(temp.word, size, other.word);
+		strcpy_s(temp.word, size + 1, word);
+		
+	}
+	else if (other.word != nullptr && word == nullptr)
+	{
+		int size = strlen(other.word);
+		temp.word = new char[size + 1];
+
+		strcpy_s(temp.word, size + 1, other.word);
+
+	}
+	else if (other.word != nullptr && word != nullptr)
+	{
+		int size = strlen(other.word) + strlen(word) + 2;
+		temp.word = new char[size];
+
+		strcpy_s(temp.word, size, word);
+		strcat_s(temp.word, size, " ");
+		strcat_s(temp.word, size, other.word);
+	}
+
 
 	return temp;
 }

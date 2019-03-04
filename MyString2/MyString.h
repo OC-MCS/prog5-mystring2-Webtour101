@@ -7,14 +7,14 @@ class myString
 private:
 	char *word;
 public:
-	myString();
-	char* getWord() const;
-	myString(const char *newChar);
-	myString(const myString &other);
-	myString operator=(const myString &other);
-	myString operator+(const myString &other);
-	bool operator==(const myString &other);
-	~myString();
+	myString(); //constructor
+	char* getWord() const; //gets the word for output
+	myString(const char *newChar); //constructor * char, for string literals
+	myString(const myString &other); //copy constructor
+	myString operator=(const myString &other); //over=
+	myString operator+(const myString &other);//over+
+	bool operator==(const myString &other);//over==
+	~myString();//destructor
 };
 
 ostream &operator<<(ostream &output, const myString &other);
